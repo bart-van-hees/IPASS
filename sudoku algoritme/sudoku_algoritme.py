@@ -38,8 +38,10 @@ class recusive_backtracking():
         if rij == False and colom == False:
             print("de puzzle is solved")
         else:
-            for gok in range(1):
-                self.good_guess(self.sudoku, rij, colom, gok)
+            for gok in range(1,10):
+                if (self.good_guess(self.sudoku, rij, colom, gok)) != False:
+                    print(gok, "kan op deze plek")
+
 
     def find_zero(self):
         for rij in range(9):
@@ -51,12 +53,60 @@ class recusive_backtracking():
         if (self.sudoku[rij][colom]) != 0:
             return False, False
 
+
+
+
     def good_guess(self, sudoku, rij, colom, gok):
+        #verticale check
+        print("ik ben gok", gok)
         for item in sudoku:
-            print(item)
-        print(rij)
-        print(colom)
-        print(gok)
+            if item[colom] == gok:
+                print("ik breek")
+                return False
+            else:
+                continue
+
+        #horizontale check
+        for item in sudoku[rij]:
+            if item == gok:
+                print("ik breek horzontaal")
+                return False
+            else:
+                continue
+
+        #3x3 check
+        #haal de index van de 3x3 grid op
+        x = self.grid(rij,colom, gok)
+
+
+    def grid(self, rij,colom, gok):
+        if rij <= 2:
+            if colom <= 2:
+                for item in range(3):
+                    for x in range(3):
+                        if (self.sudoku[item][x]) == gok:
+                            return False
+            elif colom <= 5:
+                for item in range(3):
+                    for x in range(3,6):
+                        if (self.sudoku[item][x]) == gok:
+                            return False
+            elif colom <= 8:
+                for item in range(3):
+                    for x in range(6,9):
+                        if (self.sudoku[item][x]) == gok:
+                            return False
+        elif rij <= 5:
+            if colom <=
+
+
+
+        elif rij <= 8:
+
+
+
+
+
 
 
 test1 = recusive_backtracking(test_sudoku_empty)
