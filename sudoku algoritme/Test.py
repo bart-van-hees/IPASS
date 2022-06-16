@@ -10,9 +10,9 @@ test_sudoku_empty = [
     [0, 0, 0, 0, 8, 0, 0, 7, 9],
 ]
 
-gok = 8
-rij = 0
-colom = 4
+gok = 9
+rij = 6
+colom = 8
 def grid(rij,colom,gok):
     if rij <= 2:
         if colom <= 2:
@@ -30,12 +30,41 @@ def grid(rij,colom,gok):
                 for x in range(6, 9):
                     if (test_sudoku_empty[item][x]) == gok:
                         return False
-    # elif rij <= 5:
-    #     if colom <=
-    #
-    #
-    #
-    # elif rij <= 8:
+    elif rij <= 5:
+        if colom <= 2:
+            for item in range(3,6):
+                for x in range(3):
+                    if (test_sudoku_empty[item][x]) == gok:
+                        return False
+
+        elif colom <= 5:
+            for item in range(3, 6):
+                for x in range(3, 6):
+                    if (test_sudoku_empty[item][x]) == gok:
+                        return False
+
+        elif colom <= 8:
+            for item in range(3,6):
+                for x in range(6, 9):
+                    if (test_sudoku_empty[item][x]) == gok:
+                        return False
+    elif rij <= 8:
+        if colom<=2:
+            for item in range(6,9):
+                for x in range(3):
+                    if (test_sudoku_empty[item][x]) == gok:
+                        return False
+        elif colom <=5:
+            for item in range(6,9):
+                for x in range(3,6):
+                    if (test_sudoku_empty[item][x]) == gok:
+                        return False
+        elif colom <=8:
+            for item in range(6,9):
+                for x in range(6,9):
+                    if (test_sudoku_empty[item][x]) == gok:
+                        return False
+
 
 
 # rij = 5

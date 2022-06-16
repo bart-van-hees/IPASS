@@ -26,6 +26,12 @@ test_sudoku_empty = [
 # z = [1,2,3,4,5,6,7,8,9]
 
 
+
+
+#taken voor vrijdag
+# split good_guess 2 keer op in horizontal en vertical
+#finish het algoritme
+
 class recusive_backtracking():
     def __init__(self, sudoku):
         self.sudoku = sudoku
@@ -96,12 +102,40 @@ class recusive_backtracking():
                     for x in range(6,9):
                         if (self.sudoku[item][x]) == gok:
                             return False
+
         elif rij <= 5:
-            if colom <=
-
-
+            if colom <= 2:
+                for item in range(3, 6):
+                    for x in range(3):
+                        if (self.sudoku[item][x]) == gok:
+                            return False
+            elif colom <= 5:
+                for item in range(3, 6):
+                    for x in range(3, 6):
+                        if (self.sudoku[item][x]) == gok:
+                            return False
+            elif colom <= 8:
+                for item in range(3, 6):
+                    for x in range(6, 9):
+                        if (self.sudoku[item][x]) == gok:
+                            return False
 
         elif rij <= 8:
+            if colom <= 2:
+                for item in range(6, 9):
+                    for x in range(3):
+                        if (self.sudoku[item][x]) == gok:
+                            return False
+            elif colom <= 5:
+                for item in range(6, 9):
+                    for x in range(3, 6):
+                        if (self.sudoku[item][x]) == gok:
+                            return False
+            elif colom <= 8:
+                for item in range(6, 9):
+                    for x in range(6, 9):
+                        if (self.sudoku[item][x]) == gok:
+                            return False
 
 
 
