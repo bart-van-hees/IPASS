@@ -30,20 +30,43 @@ test_sudoku_empty = [
 
 
 class recusive_backtracking():
-    def __init__(self, sudoku):
+    def __init__(self, sudoku, rij, colom):
         self.sudoku = sudoku
+        self.rij = rij
+        self.colom = colom
 
     def solv_sudoku(self):
-        rij, colom = self.find_unused()
+        self.rij,self.colom = self.find_zero()
+        print(self.rij,self.colom)
+        if self.rij == False and self.colom == False:
+            print("de puzzle is solved")
+        else:
+            for gok in range(1):
+                self.good_guess(self.sudoku,self.rij,self.colom, gok)
 
 
-
-    def find_unused(self):
-        for rij in range(9):
-            for colom in range(9):
-                if self.sudoku[colom][rij] == 0:
-                    return rij, colom
-                if(self.sudoku[8][8]) !=0:
+    def find_zero(self):
+        for self.rij in range(9):
+            for self.colom in range(9):
+                if self.sudoku[self.colom][self.rij] == 0:
+                    # self.rij = rij
+                    # self.colom = colom
+                    return self.rij, self.colom
+        if(self.sudoku[self.rij][self.colom]) !=0:
                     return False, False
-test1 = recusive_backtracking(test_sudoku_empty)
+
+    def good_guess(self, sudoku, rij, colom, gok):
+        for item in sudoku:
+            print(item)
+        print(rij)
+        print(colom)
+        print(gok)
+
+
+
+
+
+
+
+test1 = recusive_backtracking(test_sudoku_empty, 0, 0)
 test1.solv_sudoku()
