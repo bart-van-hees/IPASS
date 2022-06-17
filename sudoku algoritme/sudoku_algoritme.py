@@ -25,64 +25,66 @@ test_sudoku_empty = [
 
 # z = [1,2,3,4,5,6,7,8,9]
 
-
-
-
-#taken voor vrijdag
-# split good_guess 2 keer op in horizontal en vertical
-#finish het algoritme
-
-class recusive_backtracking():
+class recusive_backtracking:
     def __init__(self, sudoku):
         self.sudoku = sudoku
-        # self.rij = rij
-        # self.colom = colom
 
     def solv_sudoku(self):
         rij, colom = self.find_zero()
-        print(rij, colom)
         if rij == False and colom == False:
             print("de puzzle is solved")
+            for item in self.sudoku:
+                print(item)
+            return True
         else:
             for gok in range(1,10):
-                if (self.good_guess(self.sudoku, rij, colom, gok)) != False:
-                    print(gok, "kan op deze plek")
+                if (self.good_guess(self.sudoku, rij, colom, gok)) == True:
+                    print(gok, "kan op rij ", rij, "en colom ",colom)
+                    self.sudoku[rij][colom] = gok
+                    if self.solv_sudoku() == True:
+                        return True
+                self.sudoku[rij][colom] = 0
+            return False
+
+
+
+
+
 
 
     def find_zero(self):
         for rij in range(9):
             for colom in range(9):
-                if self.sudoku[colom][rij] == 0:
-                    # self.rij = rij
-                    # self.colom = colom
+                if self.sudoku[rij][colom] == 0:
                     return rij, colom
         if (self.sudoku[rij][colom]) != 0:
             return False, False
 
 
-
-
     def good_guess(self, sudoku, rij, colom, gok):
-        #verticale check
-        print("ik ben gok", gok)
-        for item in sudoku:
-            if item[colom] == gok:
-                print("ik breek")
-                return False
-            else:
-                continue
-
-        #horizontale check
-        for item in sudoku[rij]:
-            if item == gok:
-                print("ik breek horzontaal")
-                return False
-            else:
-                continue
-
-        #3x3 check
-        #haal de index van de 3x3 grid op
+        y = self.horizontal_check(rij,gok)
         x = self.grid(rij,colom, gok)
+        z = self.vertical_check(colom,gok)
+        if x == False or y == False or z == False:
+            return False
+        else:
+            return True
+
+
+
+    def vertical_check(self, colom, gok):
+        for item in self.sudoku:
+            if item[colom] == gok:
+                return False
+            else:
+                continue
+
+    def horizontal_check(self, rij, gok):
+        for item in self.sudoku[rij]:
+            if item == gok:
+                return False
+            else:
+                continue
 
 
     def grid(self, rij,colom, gok):
