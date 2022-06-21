@@ -1,3 +1,6 @@
+import time
+start_time = time.time()
+
 test_sudoku_solved = [
     [5, 3, 4, 6, 7, 8, 9, 1, 2],
     [6, 7, 2, 1, 9, 5, 3, 4, 8],
@@ -23,6 +26,17 @@ test_sudoku_empty = [
 ]
 
 
+empty_user_grid = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
 # z = [1,2,3,4,5,6,7,8,9]
 
 class recusive_backtracking:
@@ -33,23 +47,16 @@ class recusive_backtracking:
         rij, colom = self.find_zero()
         if rij == False and colom == False:
             print("de puzzle is solved")
-            for item in self.sudoku:
-                print(item)
             return True
         else:
             for gok in range(1,10):
                 if (self.good_guess(self.sudoku, rij, colom, gok)) == True:
-                    print(gok, "kan op rij ", rij, "en colom ",colom)
+                    # print(gok, "kan op rij", rij, "en colom",colom)
                     self.sudoku[rij][colom] = gok
                     if self.solv_sudoku() == True:
                         return True
                 self.sudoku[rij][colom] = 0
             return False
-
-
-
-
-
 
 
     def find_zero(self):
@@ -71,7 +78,6 @@ class recusive_backtracking:
             return True
 
 
-
     def vertical_check(self, colom, gok):
         for item in self.sudoku:
             if item[colom] == gok:
@@ -86,8 +92,7 @@ class recusive_backtracking:
             else:
                 continue
 
-
-    def grid(self, rij,colom, gok):
+    def grid(self, rij, colom, gok):
         if rij <= 2:
             if colom <= 2:
                 for item in range(3):
@@ -139,6 +144,9 @@ class recusive_backtracking:
                         if (self.sudoku[item][x]) == gok:
                             return False
 
+    def get_sudoku(self):
+        x = self.sudoku
+        return x
 
 
 
@@ -147,3 +155,26 @@ class recusive_backtracking:
 
 test1 = recusive_backtracking(test_sudoku_empty)
 test1.solv_sudoku()
+for item in test1.get_sudoku():
+    print(item)
+
+# c = int(input("vul hier in hoeveel cijfers je al in je sudoku hebt: "))
+# print("links boven is vakje 0.0\nrechts onder is vakje 9.9\n")
+# count = 0
+# while count <= c:
+#     getal = int(input("vul hier een cijfer in"))
+#     horizontaal = int(input("vul hier je horizontale coordinaat in: "))
+#     verticaal = int(input("vul hier je verticale coordinaat in: "))
+#     empty_user_grid[horizontaal][verticaal] = getal
+#     count+=1
+#     for item in empty_user_grid:
+#         print(item)
+#
+#
+#
+# print("links boven is vakje 0.0\nrechts onder is vakje 9.9\n")
+# h = int(input("vul hier je horizontale coordinaat in: "))
+# v = int(input("vul hier je verticale coordinaat in: "))
+#
+# print("het cijfer van vakje",h,".",v,"is:",test1.get_sudoku()[h][v])
+print("--- %s seconds ---" % (time.time() - start_time))
