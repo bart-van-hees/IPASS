@@ -37,17 +37,57 @@ XY.grid(row=0, column=0, sticky="nsew")
 
 
 for item in range(len(empty_user_grid)):
-    temp = tk.Label(master=window,text=str(item+1))
+    temp = tk.Label(master=window,text=str(item+1), relief="ridge")
     temp.grid(row=0,column=item+1, sticky="nsew")
 
 for item in range(len(empty_user_grid)):
-    temp = tk.Label(master=window, text=str(item + 1))
+    temp = tk.Label(master=window, text=str(item + 1),relief= "ridge")
     temp.grid(row=item+1, column=0, sticky="nsew")
 
+
+# deze afmaken
 for rij in range(len(empty_user_grid)):
-    for getal in empty_user_grid[rij]:
-        temp_getal = tk.Label(master=window, text = str(getal))
-        temp_getal.grid(row = rij +1 )
+    for getal in range(len(empty_user_grid[rij])):
+        if rij <= 2:
+            if getal <= 2:
+                temp_getal = tk.Label(master=window, text=str(empty_user_grid[rij][getal]), relief="sunken", bg="#14213D", fg="white")
+                temp_getal.grid(row=rij + 1, column=getal + 1, sticky="nsew")
+            elif getal <= 5:
+                temp_getal = tk.Label(master=window, text=str(empty_user_grid[rij][getal]), relief="raised", bg="#fca311", fg="black")
+                temp_getal.grid(row=rij + 1, column=getal + 1, sticky="nsew")
+            elif getal <= 8:
+                temp_getal = tk.Label(master=window, text=str(empty_user_grid[rij][getal]), relief="sunken", bg="#14213D", fg="white")
+                temp_getal.grid(row=rij + 1, column=getal + 1, sticky="nsew")
+
+        elif rij <= 5:
+            if getal <= 2:
+                temp_getal = tk.Label(master=window, text=str(empty_user_grid[rij][getal]), relief="raised", bg="#fca311", fg="black")
+                temp_getal.grid(row=rij + 1, column=getal + 1, sticky="nsew")
+            elif getal <= 5:
+                temp_getal = tk.Label(master=window, text=str(empty_user_grid[rij][getal]), relief="sunken", bg="#14213D", fg="white")
+                temp_getal.grid(row=rij + 1, column=getal + 1, sticky="nsew")
+            elif getal <= 8:
+                temp_getal = tk.Label(master=window, text=str(empty_user_grid[rij][getal]), relief="raised", bg="#fca311", fg="black")
+                temp_getal.grid(row=rij + 1, column=getal + 1, sticky="nsew")
+
+        elif rij <= 8:
+            if getal <= 2:
+                temp_getal = tk.Label(master=window, text=str(empty_user_grid[rij][getal]), relief="sunken", bg="#14213D", fg="white")
+                temp_getal.grid(row=rij + 1, column=getal + 1, sticky="nsew")
+            elif getal <= 5:
+                temp_getal = tk.Label(master=window, text=str(empty_user_grid[rij][getal]), relief="raised", bg="#fca311", fg="black")
+                temp_getal.grid(row=rij + 1, column=getal + 1, sticky="nsew")
+            elif getal <= 8:
+                temp_getal = tk.Label(master=window, text=str(empty_user_grid[rij][getal]), relief="sunken", bg="#14213D", fg="white")
+                temp_getal.grid(row=rij + 1, column=getal + 1, sticky="nsew")
+
+
+
+
+
+
+
+
 
 #buttons
 btn_add_number = tk.Button(master=window, text="add\nnumber", command=add_number, relief= "raised")
