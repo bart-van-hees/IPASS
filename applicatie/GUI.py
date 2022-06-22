@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter.messagebox import showinfo
+
 from algoritme.sudoku_algoritme import *
 
 empty_user_grid = [
@@ -24,6 +26,10 @@ empty_user_grid_use = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
+
+global generated
+generated = 0
+
 def generate_grid():
     for rij in range(len(empty_user_grid)):
         for getal in range(len(empty_user_grid[rij])):
@@ -74,26 +80,75 @@ def add_number():
     number = int(get_add_number.get())
     x = int(get_x.get())
     y = int(get_y.get())
-    get_add_number.delete(0,tk.END)
-    get_x.delete(0, tk.END)
-    get_y.delete(0, tk.END)
+    if number < 1 or number > 9 :
+        showinfo(title='error', message="je getal is kleiner dan 1 of groter dan 9")
+        get_add_number.delete(0, tk.END)
+        get_x.delete(0, tk.END)
+        get_y.delete(0, tk.END)
+    elif x < 1 or x > 9:
+        showinfo(title='error', message="je x bestaat niet")
+        get_add_number.delete(0, tk.END)
+        get_x.delete(0, tk.END)
+        get_y.delete(0, tk.END)
 
-    empty_user_grid[y-1][x-1] = number
-    empty_user_grid_use[y-1][x-1] = number
-    generate_grid()
+    elif y < 1 or y > 9:
+        showinfo(title='error', message="je y bestaat niet")
+        get_add_number.delete(0, tk.END)
+        get_x.delete(0, tk.END)
+        get_y.delete(0, tk.END)
+    else:
+        get_add_number.delete(0,tk.END)
+        get_x.delete(0, tk.END)
+        get_y.delete(0, tk.END)
+
+        empty_user_grid[y-1][x-1] = number
+        empty_user_grid_use[y-1][x-1] = number
+        generate_grid()
 
 def show_number():
-    number = int(get_show_number.get())
     x = int(get_x_show.get())
     y = int(get_y_show.get())
-    get_show_number.delete(0,tk.END)
-    get_x_show.delete(0,tk.END)
-    get_y_show.delete(0,tk.END)
+    if x < 1 or x > 9:
+        showinfo(title='error', message="je x bestaat niet")
+        get_add_number.delete(0, tk.END)
+        get_x.delete(0, tk.END)
+        get_y.delete(0, tk.END)
+    elif y < 1 or y > 9:
+        showinfo(title='error', message="je y bestaat niet")
+        get_add_number.delete(0, tk.END)
+        get_x.delete(0, tk.END)
+        get_y.delete(0, tk.END)
+    elif generated == 0:
+        showinfo(title='error', message="je hebt de antwoorden nog niet gegenereerd")
+        get_add_number.delete(0, tk.END)
+        get_x.delete(0, tk.END)
+        get_y.delete(0, tk.END)
+    else:
+        number = empty_user_grid_use[y-1][x-1]
+        empty_user_grid[y - 1][x - 1] = number
+        get_x_show.delete(0,tk.END)
+        get_y_show.delete(0,tk.END)
+        generate_grid()
 
 def generate_answers():
+    generated += 1
     answer = recusive_backtracking(empty_user_grid_use)
     answer.solv_sudoku()
     answer.get_sudoku()
+
+
+def show_sudoku():
+    if generated == 0:
+        showinfo(title='error', message="je hebt de antwoorden nog niet gegenereerd")
+    else:
+        for y in range(len(empty_user_grid_use)):
+            for x in range(len(empty_user_grid_use[y])):
+                empty_user_grid[y][x] = empty_user_grid_use[y][x]
+        generate_grid()
+
+
+
+
 
 
 
@@ -128,13 +183,13 @@ generate_grid()
 btn_add_number = tk.Button(master=window, text="add\nnumber", command=add_number, relief= "raised")
 btn_add_number.grid(row = 11, column= 1,sticky="nsew")
 
-btn_show_number = tk.Button(master=window, text="show\nnumber", relief="raised")
+btn_show_number = tk.Button(master=window, text="show\nnumber",command=show_number, relief="raised")
 btn_show_number.grid(row= 13, column=1, sticky="nsew")
 
-btn_generate_answer = tk.Button(master=window, text="solve\nsudoku", relief= "raised")
+btn_generate_answer = tk.Button(master=window, text="solve\nsudoku", command=generate_answers,  relief= "raised")
 btn_generate_answer.grid(row=15, column=4, sticky="nsew")
 
-btn_show_answer = tk.Button(master=window, text="show\nsudoku", relief= "raised")
+btn_show_answer = tk.Button(master=window, text="show\nsudoku",command=show_sudoku, relief= "raised")
 btn_show_answer.grid(row= 15, column= 6, sticky="nsew")
 
 
@@ -161,9 +216,6 @@ get_x.grid(row = 11, column= 5, sticky="nsew")
 
 get_y = tk.Entry(master=window, width=2 )
 get_y.grid(row = 11, column= 8, sticky="nsew")
-
-get_show_number = tk.Entry(master=window, width=2)
-get_show_number.grid(row= 13, column= 2, sticky="nsew")
 
 get_x_show = tk.Entry(master=window, width=2)
 get_x_show.grid(row=13, column=5, sticky="nsew")
