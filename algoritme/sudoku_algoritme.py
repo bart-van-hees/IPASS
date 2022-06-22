@@ -13,18 +13,29 @@ test_sudoku_solved = [
     [3, 4, 5, 2, 8, 6, 1, 7, 9],
 ]
 
-test_sudoku_empty = [
-    [5, 3, 0, 0, 7, 0, 0, 0, 0],
-    [6, 0, 0, 1, 9, 5, 0, 0, 0],
-    [0, 9, 8, 0, 0, 0, 0, 6, 0],
-    [8, 0, 0, 0, 6, 0, 0, 0, 3],
-    [4, 0, 0, 8, 0, 3, 0, 0, 1],
-    [7, 0, 0, 0, 2, 0, 0, 0, 6],
-    [0, 6, 0, 0, 0, 0, 2, 8, 0],
-    [0, 0, 0, 4, 1, 9, 0, 0, 5],
-    [0, 0, 0, 0, 8, 0, 0, 7, 9],
-]
+# test_sudoku_empty = [ #medium
+#     [0, 3, 0, 0, 7, 0, 0, 0, 0],
+#     [6, 0, 0, 1, 9, 5, 0, 0, 0],
+#     [0, 9, 8, 0, 0, 0, 0, 6, 0],
+#     [8, 0, 0, 0, 6, 0, 0, 0, 3],
+#     [4, 0, 0, 8, 0, 3, 0, 0, 1],
+#     [7, 0, 0, 0, 2, 0, 0, 0, 6],
+#     [0, 6, 0, 0, 0, 0, 2, 8, 0],
+#     [0, 0, 0, 4, 1, 9, 0, 0, 5],
+#     [0, 0, 0, 0, 8, 0, 0, 7, 9],
+# ]
 
+test_sudoku_empty = [ #expert
+    [0, 2, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 2, 0, 0, 7],
+    [0, 8, 3, 0, 9, 0, 0, 0, 0],
+    [0, 7, 0, 0, 0, 6, 4, 0, 0],
+    [0, 4, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 8, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [5, 0, 0, 0, 3, 0, 0, 0, 2],
+    [1, 0, 0, 0, 8, 0, 7, 0, 9],
+]
 
 empty_user_grid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -37,7 +48,7 @@ empty_user_grid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
-# z = [1,2,3,4,5,6,7,8,9]
+
 
 class recusive_backtracking:
     def __init__(self, sudoku):
@@ -45,13 +56,12 @@ class recusive_backtracking:
 
     def solv_sudoku(self):
         rij, colom = self.find_zero()
-        if rij == False and colom == False:
+        if rij == False and colom == False and self.sudoku[0][0] != 0:          # 0 == false als index 0,0 == 0 denk het programma dat hij al klaar is daarom die laatste and
             print("de puzzle is solved")
             return True
         else:
             for gok in range(1,10):
-                if (self.good_guess(self.sudoku, rij, colom, gok)) == True:
-                    # print(gok, "kan op rij", rij, "en colom",colom)
+                if (self.good_guess(rij, colom, gok)) == True:
                     self.sudoku[rij][colom] = gok
                     if self.solv_sudoku() == True:
                         return True
@@ -68,7 +78,7 @@ class recusive_backtracking:
             return False, False
 
 
-    def good_guess(self, sudoku, rij, colom, gok):
+    def good_guess(self, rij, colom, gok):
         y = self.horizontal_check(rij,gok)
         x = self.grid(rij,colom, gok)
         z = self.vertical_check(colom,gok)
@@ -153,10 +163,10 @@ class recusive_backtracking:
 
 
 
-test1 = recusive_backtracking(test_sudoku_empty)
-test1.solv_sudoku()
-for item in test1.get_sudoku():
-    print(item)
+# test1 = recusive_backtracking(test_sudoku_empty)
+# test1.solv_sudoku()
+# for item in test1.get_sudoku():
+#     print(item)
 
 # c = int(input("vul hier in hoeveel cijfers je al in je sudoku hebt: "))
 # print("links boven is vakje 0.0\nrechts onder is vakje 9.9\n")
