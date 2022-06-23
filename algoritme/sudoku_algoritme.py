@@ -25,7 +25,7 @@ test_sudoku_solved = [
 #     [0, 0, 0, 0, 8, 0, 0, 7, 9],
 # ]
 
-test_sudoku_empty = [ #expert
+test_sudoku_expert = [
     [0, 2, 0, 0, 0, 0, 1, 0, 0],
     [0, 0, 0, 0, 0, 2, 0, 0, 7],
     [0, 8, 3, 0, 9, 0, 0, 0, 0],
@@ -36,18 +36,18 @@ test_sudoku_empty = [ #expert
     [5, 0, 0, 0, 3, 0, 0, 0, 2],
     [1, 0, 0, 0, 8, 0, 7, 0, 9],
 ]
-
-empty_user_grid = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-]
+#
+# empty_user_grid = [
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
+# ]
 
 
 class recusive_backtracking:
@@ -66,7 +66,7 @@ class recusive_backtracking:
                     if self.solv_sudoku() == True:
                         return True
                 self.sudoku[rij][colom] = 0
-            return False
+
 
 
     def find_zero(self):
@@ -162,29 +162,10 @@ class recusive_backtracking:
 
 
 
-
-# test1 = recusive_backtracking(test_sudoku_empty)
+# test1 = recusive_backtracking(test_sudoku_expert)
 # test1.solv_sudoku()
 # for item in test1.get_sudoku():
 #     print(item)
 
-# c = int(input("vul hier in hoeveel cijfers je al in je sudoku hebt: "))
-# print("links boven is vakje 0.0\nrechts onder is vakje 9.9\n")
-# count = 0
-# while count <= c:
-#     getal = int(input("vul hier een cijfer in"))
-#     horizontaal = int(input("vul hier je horizontale coordinaat in: "))
-#     verticaal = int(input("vul hier je verticale coordinaat in: "))
-#     empty_user_grid[horizontaal][verticaal] = getal
-#     count+=1
-#     for item in empty_user_grid:
-#         print(item)
-#
-#
-#
-# print("links boven is vakje 0.0\nrechts onder is vakje 9.9\n")
-# h = int(input("vul hier je horizontale coordinaat in: "))
-# v = int(input("vul hier je verticale coordinaat in: "))
-#
-# print("het cijfer van vakje",h,".",v,"is:",test1.get_sudoku()[h][v])
+
 print("--- %s seconds ---" % (time.time() - start_time))
