@@ -1,30 +1,6 @@
 import time
 start_time = time.time()
 
-test_sudoku_solved = [
-    [5, 3, 4, 6, 7, 8, 9, 1, 2],
-    [6, 7, 2, 1, 9, 5, 3, 4, 8],
-    [1, 9, 8, 3, 4, 2, 5, 6, 7],
-    [8, 5, 9, 7, 6, 1, 4, 2, 3],
-    [4, 2, 6, 8, 5, 3, 7, 9, 1],
-    [7, 1, 3, 9, 2, 4, 8, 5, 6],
-    [9, 6, 1, 5, 3, 7, 2, 8, 4],
-    [2, 8, 7, 4, 1, 9, 6, 3, 5],
-    [3, 4, 5, 2, 8, 6, 1, 7, 9],
-]
-
-# test_sudoku_empty = [ #medium
-#     [0, 3, 0, 0, 7, 0, 0, 0, 0],
-#     [6, 0, 0, 1, 9, 5, 0, 0, 0],
-#     [0, 9, 8, 0, 0, 0, 0, 6, 0],
-#     [8, 0, 0, 0, 6, 0, 0, 0, 3],
-#     [4, 0, 0, 8, 0, 3, 0, 0, 1],
-#     [7, 0, 0, 0, 2, 0, 0, 0, 6],
-#     [0, 6, 0, 0, 0, 0, 2, 8, 0],
-#     [0, 0, 0, 4, 1, 9, 0, 0, 5],
-#     [0, 0, 0, 0, 8, 0, 0, 7, 9],
-# ]
-
 test_sudoku_expert = [
     [0, 2, 0, 0, 0, 0, 1, 0, 0],
     [0, 0, 0, 0, 0, 2, 0, 0, 7],
@@ -36,19 +12,6 @@ test_sudoku_expert = [
     [5, 0, 0, 0, 3, 0, 0, 0, 2],
     [1, 0, 0, 0, 8, 0, 7, 0, 9],
 ]
-#
-# empty_user_grid = [
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-# ]
-
 
 class recusive_backtracking:
     def __init__(self, sudoku):
@@ -57,7 +20,6 @@ class recusive_backtracking:
     def solv_sudoku(self):
         rij, colom = self.find_zero()
         if rij == False and colom == False and self.sudoku[0][0] != 0:          # 0 == false als index 0,0 == 0 denk het programma dat hij al klaar is daarom die laatste and
-            print("de puzzle is solved")
             return True
         else:
             for gok in range(1,10):
@@ -67,8 +29,6 @@ class recusive_backtracking:
                         return True
                 self.sudoku[rij][colom] = 0
 
-
-
     def find_zero(self):
         for rij in range(9):
             for colom in range(9):
@@ -76,7 +36,6 @@ class recusive_backtracking:
                     return rij, colom
         if (self.sudoku[rij][colom]) != 0:
             return False, False
-
 
     def good_guess(self, rij, colom, gok):
         y = self.horizontal_check(rij,gok)
@@ -86,7 +45,6 @@ class recusive_backtracking:
             return False
         else:
             return True
-
 
     def vertical_check(self, colom, gok):
         for item in self.sudoku:
@@ -119,7 +77,6 @@ class recusive_backtracking:
                     for x in range(6,9):
                         if (self.sudoku[item][x]) == gok:
                             return False
-
         elif rij <= 5:
             if colom <= 2:
                 for item in range(3, 6):
@@ -136,7 +93,6 @@ class recusive_backtracking:
                     for x in range(6, 9):
                         if (self.sudoku[item][x]) == gok:
                             return False
-
         elif rij <= 8:
             if colom <= 2:
                 for item in range(6, 9):
@@ -154,18 +110,18 @@ class recusive_backtracking:
                         if (self.sudoku[item][x]) == gok:
                             return False
 
+    def get_tip(self, rij, colom):
+        self.solv_sudoku()
+        return self.sudoku[rij][colom]
+
     def get_sudoku(self):
         x = self.sudoku
         return x
 
 
-
-
-
-# test1 = recusive_backtracking(test_sudoku_expert)
-# test1.solv_sudoku()
+test1 = recusive_backtracking(test_sudoku_expert)
+test1.solv_sudoku()
 # for item in test1.get_sudoku():
 #     print(item)
-
 
 print("--- %s seconds ---" % (time.time() - start_time))

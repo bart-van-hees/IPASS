@@ -51,13 +51,6 @@ test_sudoku_expert_solved=[
 
 class test_sudoku(unittest.TestCase):
 
-    def test_get(self):
-        S1 = recusive_backtracking(test_sudoku_medium)
-        self.assertListEqual(S1.get_sudoku(), test_sudoku_medium)
-
-        S2 = recusive_backtracking(test_sudoku_expert)
-        self.assertListEqual(S2.get_sudoku(), test_sudoku_expert)
-
     def test_solv_sudoku(self):
         S1 = recusive_backtracking(test_sudoku_medium)
         S1.solv_sudoku()
@@ -116,4 +109,25 @@ class test_sudoku(unittest.TestCase):
         self.assertIsNone(S2.grid(3,0,2))
         self.assertIsNone(S2.grid(7,3,2))
 
+
+
+class test_getters(unittest.TestCase):
+
+    def test_get_tip(self):
+        S1 = recusive_backtracking(test_sudoku_medium)
+        self.assertEqual(S1.get_tip(0,0), 5)
+        self.assertEqual(S1.get_tip(4,4), 5)
+        self.assertEqual(S1.get_tip(8,8), 9)
+
+        S2 = recusive_backtracking(test_sudoku_expert)
+        self.assertEqual(S2.get_tip(0,8),3)
+        self.assertEqual(S2.get_tip(4,4),5)
+        self.assertEqual(S2.get_tip(8,0),1)
+
+    def test_get(self):
+        S1 = recusive_backtracking(test_sudoku_medium)
+        self.assertListEqual(S1.get_sudoku(), test_sudoku_medium)
+
+        S2 = recusive_backtracking(test_sudoku_expert)
+        self.assertListEqual(S2.get_sudoku(), test_sudoku_expert)
 
