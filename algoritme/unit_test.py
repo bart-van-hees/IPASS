@@ -1,7 +1,6 @@
 import unittest
 from sudoku_algoritme import *
 
-
 test_sudoku_medium = [ #medium
     [0, 3, 0, 0, 7, 0, 0, 0, 0],
     [6, 0, 0, 1, 9, 5, 0, 0, 0],
@@ -87,18 +86,34 @@ class test_sudoku(unittest.TestCase):
     def test_vertical(self):
         S1 = recusive_backtracking(test_sudoku_medium)
         self.assertFalse(S1.vertical_check(0,6))
-        x =S1.vertical_check(4,3)
-        self.assertIsNone(None)
 
         S2 = recusive_backtracking(test_sudoku_expert)
         self.assertFalse(S2.vertical_check(5,6))
-        y = S2.vertical_check(5, 5)
-        self.assertIsNone(None)
 
+    def test_horizontal(self):
+        S1 = recusive_backtracking(test_sudoku_medium)
+        self.assertFalse(S1.horizontal_check(0,3))
+        self.assertIsNone(S1.horizontal_check(0,1))
 
-    # def test_horizontal(self):
-    #
-    #
-    # def test_grid(self):
+        S2 = recusive_backtracking(test_sudoku_expert)
+        self.assertFalse(S2.horizontal_check(3,7))
+        self.assertIsNone(S2.horizontal_check(3,1))
+
+    def test_grid(self):
+        S1 = recusive_backtracking(test_sudoku_medium)
+        self.assertFalse(S1.grid(0,0,8))
+        self.assertFalse(S1.grid(3,3,2))
+        self.assertFalse(S1.grid(6,6,9))
+        self.assertIsNone(S1.grid(0,0,1))
+        self.assertIsNone(S1.grid(3,3,1))
+        self.assertIsNone(S1.grid(6,6,1))
+
+        S2 = recusive_backtracking(test_sudoku_expert)
+        self.assertFalse(S2.grid(7,1,7))
+        self.assertFalse(S2.grid(3,0,4))
+        self.assertFalse(S2.grid(7,3,3))
+        self.assertIsNone(S2.grid(7,1,2))
+        self.assertIsNone(S2.grid(3,0,2))
+        self.assertIsNone(S2.grid(7,3,2))
 
 
