@@ -1,17 +1,30 @@
 import time
 start_time = time.time()
 
+# test_sudoku_expert = [
+#     [0, 2, 0, 0, 0, 0, 1, 0, 0],
+#     [0, 0, 0, 0, 0, 2, 0, 0, 7],
+#     [0, 8, 3, 0, 9, 0, 0, 0, 0],
+#     [0, 7, 0, 0, 0, 6, 4, 0, 0],
+#     [0, 4, 0, 0, 0, 1, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 8, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [5, 0, 0, 0, 3, 0, 0, 0, 2],
+#     [1, 0, 0, 0, 8, 0, 7, 0, 9],
+# ]
 test_sudoku_expert = [
-    [0, 2, 0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 2, 0, 0, 7],
-    [0, 8, 3, 0, 9, 0, 0, 0, 0],
-    [0, 7, 0, 0, 0, 6, 4, 0, 0],
-    [0, 4, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 8, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [5, 0, 0, 0, 3, 0, 0, 0, 2],
-    [1, 0, 0, 0, 8, 0, 7, 0, 9],
+    [3, 8, 0, 0, 7, 0, 0, 4, 0],
+    [5, 0, 0, 0, 0, 0, 0, 7, 0],
+    [0, 6, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 5, 0, 0, 0, 0],
+    [0, 0, 7, 0, 4, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 0, 0, 5, 0],
+    [7, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 2, 7, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 9],
 ]
+
+
 
 class recusive_backtracking:
     def __init__(self, sudoku):
@@ -28,6 +41,7 @@ class recusive_backtracking:
                     if self.solv_sudoku() == True:
                         return True
                 self.sudoku[rij][colom] = 0
+            return False
 
     def find_zero(self):
         for rij in range(9):
@@ -119,8 +133,8 @@ class recusive_backtracking:
         return x
 
 
-test1 = recusive_backtracking(test_sudoku_expert)
-test1.solv_sudoku()
+# test1 = recusive_backtracking(test_sudoku_expert)
+# test1.solv_sudoku()
 # for item in test1.get_sudoku():
 #     print(item)
 

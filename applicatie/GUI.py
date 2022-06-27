@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter.messagebox import showinfo
-
 from algoritme.sudoku_algoritme import *
 
 empty_user_grid = [
@@ -128,16 +127,11 @@ def get_numbers():
         for x in range(len(eind_lijst[item])):
             y = eind_lijst[item][x]
             if y.index("end") != 0:
-                print(y.get())
-
                 #add failsafe voor _ zodat laagstreepje niet in 0 ding komt
                 empty_user_grid[item][x] = y.get()
                 empty_user_grid_use[item][x]= int(y.get())
 
-    for item in empty_user_grid:
-        print(item)
-    for item in empty_user_grid_use:
-        print(item)
+
 
 
 def show_number():
@@ -156,8 +150,8 @@ def show_number():
     #     get_x_show.delete(0, tk.END)
     #     get_y_show.delete(0, tk.END)
     else:
-        number = empty_user_grid_use[y-1][x-1]
-        empty_user_grid[y - 1][x - 1] = number
+        tip = recusive_backtracking(empty_user_grid_use)
+        empty_user_grid[y-1][x-1] = tip.get_tip(y-1,x-1)
         get_x_show.delete(0,tk.END)
         get_y_show.delete(0,tk.END)
         generate_grid()
@@ -166,9 +160,6 @@ def generate_answers():
     answer = recusive_backtracking(empty_user_grid_use)
     answer.solv_sudoku()
     answer.get_sudoku()
-
-    for item in empty_user_grid_use:
-        print(item)
     generate_grid()
 
 
@@ -188,7 +179,6 @@ window.rowconfigure([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],minsize=50, weight=1
 #labels 1-9
 XY = tk.Label(master=window, text="X →\nY\n↓")
 XY.grid(row=0, column=0, sticky="nsew")
-
 
 for item in range(len(empty_user_grid)):
     temp = tk.Label(master=window,text=str(item+1), relief="ridge", bg="#e5e5e5")
@@ -219,8 +209,6 @@ btn_show_answer.grid(row= 13, column= 6, sticky="nsew")
 
 
 #labels
-
-
 label_x_show = tk.Label(master=window, text= "grid-x", fg="black", width=10, height=10, relief="groove")
 label_x_show.grid(row=11, column= 4, sticky="nsew")
 
@@ -229,15 +217,11 @@ label_y_show.grid(row=11, column= 7 , sticky="nsew")
 
 
 #entrys
-
-
 get_x_show = tk.Entry(master=window, width=2)
 get_x_show.grid(row=11, column=5, sticky="nsew")
 
 get_y_show = tk.Entry(master=window, width=2)
 get_y_show.grid(row=11, column= 8, sticky="nsew")
-
-
 
 
 window.mainloop()
