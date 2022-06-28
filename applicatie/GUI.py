@@ -4,7 +4,6 @@ from algoritme.sudoku_algoritme import *
 from algoritme.sudoku_generator import *
 from applicatie.grids import *
 
-lst=[]
 
 def generate_grid():
     for rij in range(len(empty_user_grid)):
@@ -118,10 +117,6 @@ def show_number():
         showinfo(title='error', message="je y bestaat niet")
         get_x_show.delete(0, tk.END)
         get_y_show.delete(0, tk.END)
-    # elif generated == 0:
-    #     showinfo(title='error', message="je hebt de antwoorden nog niet gegenereerd")
-    #     get_x_show.delete(0, tk.END)
-    #     get_y_show.delete(0, tk.END)
     else:
         tip = recusive_backtracking(empty_user_grid_use)
         empty_user_grid[y-1][x-1] = tip.get_tip(y-1,x-1)
@@ -142,7 +137,11 @@ def show_sudoku():
     generate_grid()
 
 def new_sudoku():
-    new_sudoku = generate_sudoku()
+    total = int(get_total_numbers.get())
+    if total > 35 or total < 17:
+        showinfo(title='tip', message="17 is expert mode, 35 is easy mode\n wees gewaarschuwed")
+    get_total_numbers.delete(0,tk.END)
+    new_sudoku = generate_sudoku(total)
     new_sudoku.make_sudoku()
 
     for rij in range(len(new_sudoku.get_sudoku())):
@@ -157,6 +156,8 @@ def new_sudoku():
                 empty_user_grid[rij][colom] = "_"
     generate_grid()
 
+def delete_text(x):
+    get_total_numbers.delete(0,tk.END)
 
 
 
@@ -192,13 +193,13 @@ btn_show_number = tk.Button(master=window, text="show\nnumber",command=show_numb
 btn_show_number.grid(row= 11, column=1, sticky="nsew")
 
 btn_generate_answer = tk.Button(master=window, text="solve\nsudoku", command=generate_answers,  relief= "raised", fg="#000000", bg="#e5e5e5")
-btn_generate_answer.grid(row=13, column=4, sticky="nsew")
+btn_generate_answer.grid(row=13, column=3, sticky="nsew")
 
 btn_show_answer = tk.Button(master=window, text="show\nanswers",command=show_sudoku, relief= "raised", fg="#000000", bg="#e5e5e5")
-btn_show_answer.grid(row= 13, column= 6, sticky="nsew")
+btn_show_answer.grid(row= 13, column= 5, sticky="nsew")
 
 btn_get_new_sudoku = tk.Button(master=window, text="new\nsudoku",command=new_sudoku, relief= "raised", fg="#000000", bg="#e5e5e5")
-btn_get_new_sudoku.grid(row= 13, column= 8, sticky="nsew")
+btn_get_new_sudoku.grid(row= 13, column= 7, sticky="nsew")
 
 #labels
 label_x_show = tk.Label(master=window, text= "grid-x", fg="black", width=10, height=10, relief="groove")
@@ -215,5 +216,9 @@ get_x_show.grid(row=11, column=5, sticky="nsew")
 get_y_show = tk.Entry(master=window, width=2)
 get_y_show.grid(row=11, column= 8, sticky="nsew")
 
+get_total_numbers = tk.Entry(master=window, width=2)
+get_total_numbers.grid(row=13, column=8,sticky="nsew")
+get_total_numbers.insert(0, "numbers\n")
+get_total_numbers.bind("<FocusIn>", delete_text)
 
 window.mainloop()
