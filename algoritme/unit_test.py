@@ -174,12 +174,19 @@ class test_getters(unittest.TestCase):
         self.assertEqual(S2.get_tip(4,4),5)
         self.assertEqual(S2.get_tip(8,0),1)
 
-    def test_get(self):
+    def test_get_solved(self):
         S1 = recusive_backtracking(self.test_sudoku_medium)
         self.assertListEqual(S1.get_sudoku(), self.test_sudoku_medium)
 
         S2 = recusive_backtracking(self.test_sudoku_expert)
         self.assertListEqual(S2.get_sudoku(), self.test_sudoku_expert)
+
+    def test_get_generated(self):
+        build = generate_sudoku(17)
+        build.make_sudoku()
+        sudoku = build.get_sudoku()
+        self.assertEqual(9, len(sudoku))
+        self.assertEqual(9, len(sudoku[0]))
 
 
 class test_generator(unittest.TestCase):
