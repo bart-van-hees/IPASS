@@ -1,4 +1,3 @@
-from sudoku_algoritme import *
 import random
 
 class generate_sudoku:
@@ -33,8 +32,9 @@ class generate_sudoku:
         # valid = recusive_backtracking(self.sudoku)
         # for item in valid.get_sudoku():
         #     print(item)
-        for item in self.sudoku:
-            print(item)
+        # for item in self.sudoku:
+        #     print(item)
+        # print("\n")
 
 
     def good_guess(self, rij, colom, gok):
@@ -116,13 +116,13 @@ class generate_sudoku:
 
 
 
-
-test = generate_sudoku()
-test.make_sudoku()
-x = test.get_sudoku()
-print("\n")
-p =recusive_backtracking(x)
-p.solv_sudoku()
-for item in p.get_sudoku():
-    print(item)
+#
+# test = generate_sudoku()
+# test.make_sudoku()
+# x = test.get_sudoku()
+# print("\n")
+# p =recusive_backtracking(x)
+# p.solv_sudoku()
+# for item in p.get_sudoku():
+#     print(item)
 
