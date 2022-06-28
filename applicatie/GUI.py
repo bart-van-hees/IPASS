@@ -1,33 +1,9 @@
 import tkinter as tk
 from tkinter.messagebox import showinfo
 from algoritme.sudoku_algoritme import *
+from algoritme.sudoku_generator import *
+from applicatie.grids import *
 
-empty_user_grid = [
-    ["_", "_", "_", "_", "_", "_", "_", "_", "_"],
-    ["_", "_", "_", "_", "_", "_", "_", "_", "_"],
-    ["_", "_", "_", "_", "_", "_", "_", "_", "_"],
-    ["_", "_", "_", "_", "_", "_", "_", "_", "_"],
-    ["_", "_", "_", "_", "_", "_", "_", "_", "_"],
-    ["_", "_", "_", "_", "_", "_", "_", "_", "_"],
-    ["_", "_", "_", "_", "_", "_", "_", "_", "_"],
-    ["_", "_", "_", "_", "_", "_", "_", "_", "_"],
-    ["_", "_", "_", "_", "_", "_", "_", "_", "_"],
-]
-
-empty_user_grid_use = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-]
-
-global generated
-generated = 0
 lst=[]
 
 def generate_grid():
@@ -127,11 +103,8 @@ def get_numbers():
         for x in range(len(eind_lijst[item])):
             y = eind_lijst[item][x]
             if y.index("end") != 0:
-                #add failsafe voor _ zodat laagstreepje niet in 0 ding komt
                 empty_user_grid[item][x] = y.get()
                 empty_user_grid_use[item][x]= int(y.get())
-
-
 
 
 def show_number():
@@ -162,12 +135,28 @@ def generate_answers():
     answer.get_sudoku()
     generate_grid()
 
-
 def show_sudoku():
     for y in range(len(empty_user_grid_use)):
         for x in range(len(empty_user_grid_use[y])):
             empty_user_grid[y][x] = empty_user_grid_use[y][x]
     generate_grid()
+
+def new_sudoku():
+    new_sudoku = generate_sudoku()
+    new_sudoku.make_sudoku()
+
+    for rij in range(len(new_sudoku.get_sudoku())):
+        for colom in range(len(new_sudoku.get_sudoku()[rij])):
+            empty_user_grid_use[rij][colom] = new_sudoku.get_sudoku()[rij][colom]
+
+    for rij in range(len(empty_user_grid_use)):
+        for colom in range(len(empty_user_grid_use[rij])):
+            if empty_user_grid_use[rij][colom] != 0:
+                empty_user_grid[rij][colom] = empty_user_grid_use[rij][colom]
+            else:
+                empty_user_grid[rij][colom] = "_"
+    generate_grid()
+
 
 
 
@@ -175,6 +164,7 @@ window = tk.Tk(className="sudoku test raam")
 window.geometry("500x750")
 window.columnconfigure([0,1,2,3,4,5,6,7,8,9], minsize=50, weight=1)
 window.rowconfigure([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],minsize=50, weight=1)
+
 
 #labels 1-9
 XY = tk.Label(master=window, text="X →\nY\n↓")
@@ -195,18 +185,20 @@ generate_input_grid()
 
 
 #buttons
-btn_add_number = tk.Button(master=window, text="add\nnumbers", command=get_numbers,relief= "raised")
+btn_add_number = tk.Button(master=window, text="add\nnumbers", command=get_numbers,relief= "raised", fg="#000000", bg="#e5e5e5")
 btn_add_number.grid(row = 13, column= 1,sticky="nsew")
 
-btn_show_number = tk.Button(master=window, text="show\nnumber",command=show_number, relief="raised")
+btn_show_number = tk.Button(master=window, text="show\nnumber",command=show_number, relief="raised", fg="#000000", bg="#e5e5e5")
 btn_show_number.grid(row= 11, column=1, sticky="nsew")
 
-btn_generate_answer = tk.Button(master=window, text="solve\nsudoku", command=generate_answers,  relief= "raised")
+btn_generate_answer = tk.Button(master=window, text="solve\nsudoku", command=generate_answers,  relief= "raised", fg="#000000", bg="#e5e5e5")
 btn_generate_answer.grid(row=13, column=4, sticky="nsew")
 
-btn_show_answer = tk.Button(master=window, text="show\nanswers",command=show_sudoku, relief= "raised")
+btn_show_answer = tk.Button(master=window, text="show\nanswers",command=show_sudoku, relief= "raised", fg="#000000", bg="#e5e5e5")
 btn_show_answer.grid(row= 13, column= 6, sticky="nsew")
 
+btn_get_new_sudoku = tk.Button(master=window, text="new\nsudoku",command=new_sudoku, relief= "raised", fg="#000000", bg="#e5e5e5")
+btn_get_new_sudoku.grid(row= 13, column= 8, sticky="nsew")
 
 #labels
 label_x_show = tk.Label(master=window, text= "grid-x", fg="black", width=10, height=10, relief="groove")
