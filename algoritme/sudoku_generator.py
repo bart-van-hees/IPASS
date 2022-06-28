@@ -1,7 +1,7 @@
 import random
 
 class generate_sudoku:
-    def __init__(self):
+    def __init__(self, total):
         self.sudoku = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -13,9 +13,7 @@ class generate_sudoku:
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
         ]
-        self.min_numbers = 17
-
-
+        self.min_numbers = total
 
     def make_sudoku(self):
         counter = 0
@@ -23,19 +21,11 @@ class generate_sudoku:
             x = (random.randint(0, 8))
             y = (random.randint(0, 8))
             gok = (random.randint(1, 9))
-            if self.good_guess(x, y, gok) != False:
+            if self.good_guess(x, y, gok) != False and self.sudoku[x][y] == 0:
                 self.sudoku[x][y] = gok
                 counter += 1
             else:
                 continue
-
-        # valid = recusive_backtracking(self.sudoku)
-        # for item in valid.get_sudoku():
-        #     print(item)
-        # for item in self.sudoku:
-        #     print(item)
-        # print("\n")
-
 
     def good_guess(self, rij, colom, gok):
         y = self.horizontal_check(rij,gok)
@@ -113,16 +103,3 @@ class generate_sudoku:
     def get_sudoku(self):
         x = self.sudoku
         return x
-
-
-
-#
-# test = generate_sudoku()
-# test.make_sudoku()
-# x = test.get_sudoku()
-# print("\n")
-# p =recusive_backtracking(x)
-# p.solv_sudoku()
-# for item in p.get_sudoku():
-#     print(item)
-
