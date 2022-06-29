@@ -6,6 +6,11 @@ from applicatie.grids import *
 
 
 def generate_grid():
+    """
+    :description:
+        Maakt het 9x9 grid met 3x3 grids erin.
+        Ik heb dit in een functie gezet waardoor ik het vaker kan aanroepen.
+    """
     for rij in range(len(empty_user_grid)):
         for getal in range(len(empty_user_grid[rij])):
             if rij <= 2:
@@ -51,6 +56,13 @@ def generate_grid():
                     temp_getal.grid(row=rij + 1, column=getal + 1, sticky="nsew")
 
 def generate_input_grid():
+    """
+    :description:
+        Maakt het 9x9 grid van 3x3 grids in de applicatie.
+        Deze functie zorgt ook voor de entry's waardoor de gebruiker makkelijk zijn sudoku kan invullen.
+        Elke entry wordt toegevoegd aan een lijst, hierdoor kan ik ook terug vinden wat er waar is ingevuld.
+        Ik heb dit in een functie gezet omdat ik het makkelijker vaker kan aanroepen.
+    """
     for rij in range(len(empty_user_grid)):
         for getal in range(len(empty_user_grid[rij])):
             if rij <= 2:
@@ -94,6 +106,13 @@ def generate_input_grid():
                     lst.append(temp_getal)
 
 def get_numbers():
+    """
+    :description:
+        Split de lijst met entry's op in 9 sublijsten bestaand uit 9 entry's
+        Loopt door de lijsten heen en kijkt of de entry leeg is of niet.
+        Zo niet wordt dat getal toegevoegd op dezelfde index in de lijst die een visueel doeleinde heeft,
+        en aan een lijst die wordt gebruikt om de oplossing te berekenen.
+    """
     eind_lijst=[]
     for i in range(0, len(lst), 9):
         eind_lijst.append(lst[i:i + 9])
@@ -107,6 +126,12 @@ def get_numbers():
 
 
 def show_number():
+    """
+    :description:
+        Haalt de x en y coördinaten op en maakt de entry's daarna weer leeg voor hergebruik.
+        Als x of y coördinaat niet klopt krijg je een pop-up.
+        Als de coördinaten wel kloppen word het nummer op dat index opgevraagd en daarna in de applicatie laten zien.
+    """
     x = int(get_x_show.get())
     y = int(get_y_show.get())
     if x < 1 or x > 9:
@@ -125,21 +150,36 @@ def show_number():
         generate_grid()
 
 def generate_answers():
+    """
+    :description:
+        Haalt de antwoorden van de sudoku op doormiddel van het sudoku algoritme
+        Ook veranderd hij de applicatie waardoor de gebruik geen nieuwe getallen meer kan invullen.
+    """
     answer = recusive_backtracking(empty_user_grid_use)
     answer.solv_sudoku()
     answer.get_sudoku()
     generate_grid()
 
 def show_sudoku():
+    """
+    :description:
+        Loopt door de lijst met de antwoorden en vervangt de streepjes op het visuele grid.
+        Roept aan het einde generate_grid aan om de volledige opgeloste sudoku te laten zien in de applicatie.
+    """
     for y in range(len(empty_user_grid_use)):
         for x in range(len(empty_user_grid_use[y])):
             empty_user_grid[y][x] = empty_user_grid_use[y][x]
     generate_grid()
 
 def new_sudoku():
+    """
+    :description:
+        Roept de sudoku generator aan en laat een nieuwe sudoku genereren doormiddel van het ingevulde aantal nummers.
+        De for loops zijn er voor om de twee lijsten te updaten na welke getallen er nu in staan.
+        Hierdoor kan je vaker dan 1 keer een nieuwe sudoku genereren zonder het programma te stoppen.
+        Aan het einde wordt generate_grid gebruikt om de applicatie te updaten.
+    """
     total = int(get_total_numbers.get())
-    if total > 35 or total < 17:
-        showinfo(title='tip', message="17 is expert mode, 35 is easy mode\n wees gewaarschuwed")
     get_total_numbers.delete(0,tk.END)
     new_sudoku = generate_sudoku(total)
     new_sudoku.make_sudoku()
@@ -157,8 +197,19 @@ def new_sudoku():
     generate_grid()
 
 def delete_text(x):
+    """
+    :description:
+        Als er op de entry box wordt geklikt verwijderd hij de tijdelijke tekst.
+    """
     get_total_numbers.delete(0,tk.END)
 
+
+
+"""
+    Hieronder worden alle knoppen, labels en entry's aangemaakt.
+    De twee for loops zijn om de x en y aan te maken inplaats van 18 labels zelf uit te schrijven.
+
+"""
 
 
 window = tk.Tk(className="sudoku test raam")
