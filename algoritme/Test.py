@@ -1,3 +1,6 @@
+#test bestand om idëeen in te testen je kan zien hoe ik hem heb gebruikt in de history op git.
+
+
 from sudoku_algoritme import *
 import random
 
