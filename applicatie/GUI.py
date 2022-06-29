@@ -212,7 +212,7 @@ def delete_text(x):
 """
 
 
-window = tk.Tk(className="sudoku test raam")
+window = tk.Tk(className="sudoku applicatie")
 window.geometry("500x750")
 window.columnconfigure([0,1,2,3,4,5,6,7,8,9], minsize=50, weight=1)
 window.rowconfigure([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],minsize=50, weight=1)
